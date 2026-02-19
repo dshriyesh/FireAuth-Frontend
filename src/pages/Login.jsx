@@ -33,10 +33,10 @@ const Login = () => {
             axios.defaults.withCredentials = true
             
             if (state === 'Sign Up') {
-                // Destructure from formdata, not global scope
+                
                 const { fullname, email, username, password, confirmPassword } = formdata
                 
-                // Validate password match
+                
                 if (password !== confirmPassword) {
                     toast.error('Passwords do not match!')
                     return
@@ -59,7 +59,7 @@ const Login = () => {
                     toast.error(data.message)
                 }
             } else {
-                // Destructure from formdata
+                
                 const { email, password } = formdata
                 
                 const { data } = await axios.post(`${backendUrl}/api/v1/users/login`, {
@@ -69,7 +69,7 @@ const Login = () => {
                 
                if (data.success) {
                     setIsLoggedin(true)
-                    setUserData(data.data.user)   // 🔥 DIRECTLY SET USER
+                    setUserData(data.data.user)   
                     toast.success('Login successful!')
                     navigate('/home')
                 } else {
@@ -77,7 +77,7 @@ const Login = () => {
                 }
             }
         } catch (error) {
-            // Fixed: error.response.data.message instead of data.message
+            
             toast.error(error.response?.data?.message || 'An error occurred. Please try again.')
             console.error('Error:', error)
         }
